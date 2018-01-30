@@ -141,8 +141,9 @@ class AutoUpdater extends EventEmitter {
     }
 
       //If extract zip in new folder
-      let newPath = join(updateDir, parse(updateFile).name);
-      if (existsSync(newPath)) {
+    let extensionPath = myPath.extname(updateFile);
+    let newPath = join(updateDir, (myPath.basename(updateFile)).split(extensionPath)[0]);
+    if (existsSync(newPath)) {
           if (lstatSync(newPath).isDirectory()) {
               this.options.updateDir = newPath;
           }

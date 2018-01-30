@@ -1,4 +1,5 @@
 const os = require( "os" );
+const myProcess = require("process");
 const { join, dirname } = require( "path" );
 
 const SwapWin = require( "./Swap/Win" );
@@ -6,8 +7,8 @@ const SwapLinux = require( "./Swap/Linux" );
 const SwapMac = require( "./Swap/Mac" );
 
 
-const IS_OSX = /^darwin/.test( process.platform );
-const IS_WIN = /^win/.test( process.platform );
+const IS_OSX = /^darwin/.test(myProcess.platform );
+const IS_WIN = /^win/.test(myProcess.platform );
 
 /**
  * ~/project/project_name
@@ -17,11 +18,11 @@ const IS_WIN = /^win/.test( process.platform );
  * UPDATE_DIR = /tmp/nw-autoupdate/*.*
  */
 
-const OSX_APP_DIR = IS_OSX ? process.execPath.match( /^([^\0]+?\.app)\// )[ 1 ] : null;
+const OSX_APP_DIR = IS_OSX ? myProcess.execPath.match( /^([^\0]+?\.app)\// )[ 1 ] : null;
 
 // Directory where the app executable resides
 const EXEC_DIR = IS_OSX ?
-  dirname( OSX_APP_DIR ) : dirname( process.execPath );
+  dirname(OSX_APP_DIR) : dirname(myProcess.execPath );
 
 const PKG_NAME = "nw-autoupdater";
 const LOG_FILE = `${PKG_NAME}.log`;
@@ -36,7 +37,7 @@ function getExecutable( name )
 
 
 const PLATFORM_SHORT = ( IS_WIN ? "win" : ( IS_OSX ? "mac" : "linux" ) );
-const PLATFORM_FULL = PLATFORM_SHORT + ( process.arch === "ia32" ? "32" : "64" );
+const PLATFORM_FULL = PLATFORM_SHORT + (myProcess.arch === "ia32" ? "32" : "64" );
 
 
 function swapFactory( options ){
